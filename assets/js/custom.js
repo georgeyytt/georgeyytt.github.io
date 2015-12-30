@@ -146,14 +146,32 @@
 				response.html('<i class="fa fa-warning"></i> Please fix the errors and try again.');
 			}
 
-			else {				
-				    $('#contact-form .ajax-hidden').fadeOut(500);
-				    response.html("Message Sent. I will contact you asap. Thanks.").fadeIn(500);
-				}
-            
-            	return false;
-			});
 
-	});
+            else {
+                $.ajax({
+                    url: "https://rich-hildred.rhcloud.com/Mailer/240f4fb1fac",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        name: c_name, email: c_email, message: c_message
+                    }),
+                    type: "POST"
+
+
+                }).done(function (data) {
+                    $('#contact-form .ajax-hidden').fadeOut(500);
+                    response.html('<i class="contact-response">Thank you, your message was received. I will contact you shortly.</i>').fadeIn(500);
+
+                });
+                
+            }
+
+            return false;
+        });
+
+    });
+    // navbar close on click
+    $('.nav a').on('click', function () {
+        $(".navbar-toggle").click() //bootstrap 3.x by Richard
+    });
 
 })(jQuery);
